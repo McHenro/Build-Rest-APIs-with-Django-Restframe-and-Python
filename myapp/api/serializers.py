@@ -17,13 +17,15 @@ class WatchListSerializer(serializers.ModelSerializer):
         model = WatchList
         fields = '__all__'
  
- 
+# Using HyperlinkedModelSerializer
 # class StreamPlatFormSerializer(serializers.HyperlinkedModelSerializer):
 #     watchlist = WatchListSerializer(many = True, read_only = True)
         
+# Using ModelSerializer
 class StreamPlatFormSerializer(serializers.ModelSerializer):
     watchlist = WatchListSerializer(many = True, read_only = True)
     
+    # Using Nested serializer
     # watchlist = serializers.PrimaryKeyRelatedField(many = True, read_only = True)
     # watchlist = serializers.StringRelatedField(many = True, read_only = True)
     # watchlist = serializers.HyperlinkedRelatedField(
@@ -56,13 +58,13 @@ class StreamPlatFormSerializer(serializers.ModelSerializer):
     #     return data
 
 
-
-
 # def name_length(value):
 #     if len(value) < 3:
 #         raise serializers.ValidationError('name must be at least 3 characters')
 #     return value
 
+
+# Using serializers.Serializer#
 # class MovieSerializer(serializers.Serializer):
 #     id = serializers.IntegerField(read_only=True)
 #     name = serializers.CharField(validators=[name_length])
