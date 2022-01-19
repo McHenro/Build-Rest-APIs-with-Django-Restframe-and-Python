@@ -39,10 +39,6 @@ class StreamPlatFormSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
         
-        
-        
-        
-        
     # def get_len_name(self, object):
     #     obj_name = object.name
     #     return len(obj_name)
@@ -90,5 +86,3 @@ class StreamPlatFormSerializer(serializers.ModelSerializer):
 #         if data['name'] == data['description']:
 #             raise serializers.ValidationError('name and description must not be the same')
 #         return data
-        
-        

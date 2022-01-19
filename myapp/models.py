@@ -39,7 +39,7 @@ class Review(models.Model):
                 related_name='reviews', verbose_name=_('Watchlist') )
     active = models.BooleanField(_('Active'), default=True)
     created = models.DateTimeField(_('Created'), auto_now_add=True)
-    update = models.DateTimeField(_('Update'), auto_now=True)
+    updated = models.DateTimeField(_('Update'), auto_now=True)
     
     def __str__(self):
         return str(self.rating) + " |  " + self.watchlist.title
