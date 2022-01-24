@@ -1,6 +1,6 @@
 from django.urls import path
 # from myapp.api.views import movie_list, movie_details
-from myapp.api.views import (ReviewList, ReviewDetail, WatchListAV, 
+from myapp.api.views import (ReviewList, ReviewDetail, ReviewCreate, WatchListAV, 
                              WatchDetailsAV, StreamPlatFormListAV, 
                              StreamPlatFormDetailAV)
 
@@ -10,12 +10,13 @@ urlpatterns = [
     path('stream/', StreamPlatFormListAV.as_view(), name='stream'),
     path('stream/<int:pk>', StreamPlatFormDetailAV.as_view(), name='stream-detail'),
     
-    # using Mixins alongside GenericAPIView
-    path('review/', ReviewList.as_view(), name='review-list'),
-    path('review/<int:pk>', ReviewDetail.as_view(), name='review-detail'),   
+    # # using Mixins alongside GenericAPIView
+    # path('review/', ReviewList.as_view(), name='review-list'),
+    # path('review/<int:pk>', ReviewDetail.as_view(), name='review-detail'),   
     
     # URL structure
-    # path('stream/<int:pk>/review', StreamPlatFormDetailAV.as_view(), name='stream-detail'),
-    # path('stream/review/<int:pk>', ReviewDetail.as_view(), name='review-detail'),
+    path('stream/<int:pk>/review-create', ReviewCreate.as_view(), name='review-create'),
+    path('stream/<int:pk>/review', ReviewList.as_view(), name='stream-detail'),
+    path('stream/review/<int:pk>', ReviewDetail.as_view(), name='review-detail'),
     
 ]

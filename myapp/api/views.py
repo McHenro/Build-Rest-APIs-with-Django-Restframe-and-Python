@@ -9,12 +9,34 @@ from rest_framework import generics, status
 
 
 # >> Using Concrete View Classes (generic class base view )<<
-class ReviewList(generics.ListCreateAPIView):
-    queryset = Review.objects.all()
+class ReviewCreate(generics.CreateAPIView):
+    '''
+    This class will create review for a particular watchlist(movie)
+    '''
     serializer_class = ReviewSerializer
-
+    # Overriding the create method which will be called by CreateModelMixin class.
+    def perform_create(self, serializer):
+        pk= self.kwargs.get('pk')
+        watchlist= WatchList.objects.get(pk=pk)
+        serializer.save(watchlist=watchlist)
+        
+    
+class ReviewList(generics.ListAPIView):
+    '''
+    This class will get/list all the reviews for a particular watchlist(movie)
+    '''
+    # queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    # >> Overriding queryset
+    def get_queryset(self):
+        pk = self.kwargs.get('pk')
+        return Review.objects.filter(watchlist=pk)
+    
 
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
+    '''
+    This class will enable Retrieving, Updating, Destroying of watchlist(movie)
+    '''
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     
