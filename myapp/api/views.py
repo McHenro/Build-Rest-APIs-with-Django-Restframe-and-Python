@@ -81,8 +81,7 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
 #     def delete(self, request, *args, **kwargs):
 #         return self.destroy(request, *args, **kwargs)
 
-
-# >>Using Viewsets and Routers
+# >>Using viewsets.ViewSet
 class StreamPlatFormVS(viewsets.ViewSet):
     """
     A simple ViewSet for listing or retrieving users.
@@ -98,6 +97,26 @@ class StreamPlatFormVS(viewsets.ViewSet):
         watchlist = get_object_or_404(queryset, pk=pk)
         serializer = StreamPlatFormSerializer(watchlist)
         return Response(serializer.data)
+
+    def create(self, request):
+        serializer = StreamPlatFormSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+    def update(self, request, pk):
+        platform = StreamPlatForm.objects.get(pk=pk)
+        serializer = StreamPlatFormSerializer(platform, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, pk):
+        platform = StreamPlatForm.objects.get(pk=pk)
+        platform.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 # >>Using API class views<<
